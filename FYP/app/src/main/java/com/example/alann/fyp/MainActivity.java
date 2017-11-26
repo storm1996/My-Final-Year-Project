@@ -1,8 +1,15 @@
 package com.example.alann.fyp;
 
+import android.app.Activity;
+import android.gesture.Gesture;
+import android.gesture.GestureLibraries;
+import android.gesture.GestureLibrary;
+import android.gesture.GestureOverlayView;
+import android.gesture.Prediction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.android.volley.Response;
@@ -13,13 +20,27 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class MainActivity extends Activity implements GestureOverlayView.OnGesturePerformedListener{
+    GestureLibrary mLibrary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mLibrary = GestureLibraries.fromRawResource(this, R.raw.gestures);
+        if(!mLibrary.load()){
+            finish();
+        }
+
+        GestureOverlayView gestures = (GestureOverlayView) findViewById(R.id.gestures);
+        gestures.addOnGesturePerformedListener(this);
+    }
+
+    public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture){
+        ArrayList<Prediction> predictions = mLibrary.recognize(gesture);
         final TextView mTxtDisplay1;
         final TextView mTxtDisplay2;
         final TextView mTxtDisplay3;
@@ -66,8 +87,18 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        // Access the RequestQueue through your singleton class.
-        MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
+        if (predictions.size() > 0 && predictions.get(0).score > 1.5) {
+            String result = predictions.get(0).name;
+
+            if ("Assist".equalsIgnoreCase(result)) {
+                //Toast.makeText(this, "Assist Recorded", Toast.LENGTH_LONG).show();
+                // Access the RequestQueue through your singleton class.
+                MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
+            }
+            if ("A_Loop_Exception".equalsIgnoreCase(result)) {
+                Toast.makeText(this, "A Loop Exception Caught", Toast.LENGTH_LONG).show();
+            }
+        }
 
     }
 
