@@ -22,6 +22,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+// CODE FOR THIS CLASS WAS TAKEN FROM https://developer.android.com/training/volley/index.html and http://www.techotopia.com/index.php/Implementing_Android_Custom_Gesture_Recognition_with_Android_Studio
+// FOR MORE DETAIL ON THESE REFERENCES PLEASE SEE REPORT
+
 public class MainActivity extends Activity implements GestureOverlayView.OnGesturePerformedListener{
     GestureLibrary mLibrary;
 
@@ -31,12 +34,12 @@ public class MainActivity extends Activity implements GestureOverlayView.OnGestu
         setContentView(R.layout.activity_main);
 
         mLibrary = GestureLibraries.fromRawResource(this, R.raw.gestures);
-        if(!mLibrary.load()){
+        if(!mLibrary.load()){ // GETS CUSTOM PATTERNS I MADE AND PUT IN RAW FILE
             finish();
         }
 
         GestureOverlayView gestures = (GestureOverlayView) findViewById(R.id.gestures);
-        gestures.addOnGesturePerformedListener(this);
+        gestures.addOnGesturePerformedListener(this); // LISTENER FOR PATTERNS BEING DRAWN BY USER
     }
 
     public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture){
@@ -51,9 +54,9 @@ public class MainActivity extends Activity implements GestureOverlayView.OnGestu
         mTxtDisplay3 = (TextView) findViewById(R.id.text3);
         mTxtDisplay4 = (TextView) findViewById(R.id.text4);
 
-        String url = "http://178.62.2.33:8000/api/statsHolder/?format=json";
+        String url = "http://178.62.2.33:8000/api/statsHolder/?format=json"; // URL FOR MY DJANGO APP
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest // PARSING THE JSON VALUES
                 (url, new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -87,13 +90,13 @@ public class MainActivity extends Activity implements GestureOverlayView.OnGestu
                     }
                 });
 
-        if (predictions.size() > 0 && predictions.get(0).score > 1.5) {
+        if (predictions.size() > 0 && predictions.get(0).score > 1.5) { // GETTING MATCH PREDICTIONS FOR THE GESTURES DRAWN BY USERS AND COMPARED TO STORED PATTERNS IN RAW
             String result = predictions.get(0).name;
 
             if ("Assist".equalsIgnoreCase(result)) {
                 //Toast.makeText(this, "Assist Recorded", Toast.LENGTH_LONG).show();
                 // Access the RequestQueue through your singleton class.
-                MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
+                MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest); // SENDS REQUEST TO SERVER FOR DATA IN THE SAMPLE TABLE
             }
             if ("A_Loop_Exception".equalsIgnoreCase(result)) {
                 Toast.makeText(this, "A Loop Exception Caught", Toast.LENGTH_LONG).show();
