@@ -77,18 +77,19 @@ public class ResultsContentFragment extends Fragment {
             mResults = resources.getStringArray(R.array.results);
             mWin_or_Lose = resources.getStringArray(R.array.win_or_lose);
             TypedArray a = resources.obtainTypedArray(R.array.pics);
-            mResultPic = new Drawable[a.length()];
+            //mResultPic = new Drawable[a.length()];
+            mResultPic = new Drawable[mFixtures.length];
 
-            //for (int i = 0; i < mResultPic.length; i++)
-            //{
+        //for (int i = 0; i < mResultPic.length; i++)
+        // {
             int win = 0;
             int lose = 1;
-            for (int j = 0; j < mResultPic.length; j++) {
-                if (mWin_or_Lose[j].equals("Loss")) {
-                    mResultPic[j] = a.getDrawable(lose);
-                }
+            for (int j = 0; j < mWin_or_Lose.length; j++) {
                 if (mWin_or_Lose[j].equals("Win")) {
-                    mResultPic[j] = a.getDrawable(win);
+                    mResultPic[j] = resources.getDrawable(R.drawable.star);
+                }
+                if (mWin_or_Lose[j].equals("Loss")) {
+                    mResultPic[j] = resources.getDrawable(R.drawable.unchecked);
                 }
             }
         //}
