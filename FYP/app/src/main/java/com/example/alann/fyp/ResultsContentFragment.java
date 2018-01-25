@@ -76,12 +76,8 @@ public class ResultsContentFragment extends Fragment {
             mFixtures = resources.getStringArray(R.array.fixtures);
             mResults = resources.getStringArray(R.array.results);
             mWin_or_Lose = resources.getStringArray(R.array.win_or_lose);
-            TypedArray a = resources.obtainTypedArray(R.array.pics);
-            //mResultPic = new Drawable[a.length()];
             mResultPic = new Drawable[mFixtures.length];
 
-        //for (int i = 0; i < mResultPic.length; i++)
-        // {
             int win = 0;
             int lose = 1;
             for (int j = 0; j < mWin_or_Lose.length; j++) {
@@ -92,8 +88,6 @@ public class ResultsContentFragment extends Fragment {
                     mResultPic[j] = resources.getDrawable(R.drawable.unchecked);
                 }
             }
-        //}
-            a.recycle();
         }
 
         @Override

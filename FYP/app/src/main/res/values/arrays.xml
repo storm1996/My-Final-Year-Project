@@ -21,10 +21,6 @@
         <item>@drawable/basketballjersey</item>
         <item>@drawable/trophy</item>
     </array>
-    <array name="pics">
-        <item>@drawable/star</item>
-        <item>@drawable/unchecked</item>
-    </array>
     <string-array name="win_or_lose">
         <item>Loss</item>
         <item>Loss</item>
