@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="fixtures">
+        <item>Liffey Celtics vs Glanmire</item>
+        <item>Liffey Celtics vs DCU Mercy</item>
+        <item>Brunell vs Liffey Celtics</item>
+        <item>Liffey Celtics vs Meteors</item>
+        <item>NUIG Mystics vs Liffey Celtics</item>
+        <item>Pyrobel Killester vs Liffey Celtics</item>
+        <item>IT Carlow vs Liffey Celtics</item>
+        <item>Liffey Celtics vs Maxol WIT Wildcats</item>
+        <item>Liffey Celtics vs Portlaoise Panthers</item>
+        <item>Glanmire vs Liffey Celtics</item>
+    </string-array>
+    <array name="avatar">
+        <item>@drawable/basketball</item>
+        <item>@drawable/basketball2</item>
+        <item>@drawable/basketball3</item>
+        <item>@drawable/basketball4</item>
+        <item>@drawable/basketballcourt</item>
+        <item>@drawable/basketballjersey</item>
+        <item>@drawable/trophy</item>
+    </array>
+    <array name="pics">
+        <item>@drawable/star</item>
+        <item>@drawable/unchecked</item>
+    </array>
+    <string-array name="win_or_lose">
+        <item>Loss</item>
+        <item>Loss</item>
+        <item>Loss</item>
+        <item>Win</item>
+        <item>Loss</item>
+        <item>Loss</item>
+        <item>Loss</item>
+        <item>Win</item>
+        <item>Loss</item>
+        <item>Win</item>
+    </string-array>
+    <string-array name="functions">
+        <item>Record Match</item>
+        <item>Schedule New Fixture </item>
+        <item>View Statistics</item>
+        <item>View and Edit Teams</item>
+    </string-array>
+    <string-array name="results">
+        <item>35 - 40</item>
+        <item>73 - 82</item>
+        <item>78 - 44</item>
+        <item>88 - 20</item>
+        <item>65 - 64</item>
+        <item>68 - 61</item>
+        <item>79 - 63</item>
+        <item>77 - 55</item>
+        <item>55 - 63</item>
+        <item>53 - 72</item>
+    </string-array>
+</resources>
