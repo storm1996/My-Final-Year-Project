@@ -14,11 +14,11 @@
     </string-array>
     <array name="avatar">
         <item>@drawable/basketball</item>
-        <item>@drawable/basketball2</item>
-        <item>@drawable/basketball3</item>
-        <item>@drawable/basketball4</item>
         <item>@drawable/basketballcourt</item>
+        <item>@drawable/basketball3</item>
         <item>@drawable/basketballjersey</item>
+        <item>@drawable/basketball4</item>
+        <item>@drawable/basketball2</item>
         <item>@drawable/trophy</item>
     </array>
     <string-array name="win_or_lose">
@@ -35,9 +35,9 @@
     </string-array>
     <string-array name="functions">
         <item>Record Match</item>
-        <item>Schedule New Fixture </item>
-        <item>View Statistics</item>
-        <item>View and Edit Teams</item>
+        <item>Edit Fixtures</item>
+        <item>Statistics</item>
+        <item>Teams and Players</item>
     </string-array>
     <string-array name="results">
         <item>35 - 40</item>

@@ -8,24 +8,20 @@
 
     <ImageView
         android:id="@+id/tile_avatar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/tile_height"
+        android:layout_width="@dimen/image_tile_height"
+        android:layout_height="@dimen/image_tile_height"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/md_imagelines"
         android:scaleType="centerCrop"
         tools:src="@drawable/basketball" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/tile_height"
-        android:alpha="0.3"
-        android:background="@color/colorPrimaryDark" />
 
     <TextView
         android:id="@+id/tile_function"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/tile_height"
-        android:layout_gravity="center"
-        android:gravity="center"
+        android:layout_height="@dimen/text_tile_height"
+        android:gravity="bottom|center_horizontal"
+        android:paddingBottom="@dimen/text_padding"
         android:text="@string/app_name"
-        android:textColor="@color/white"
+        android:textColor="@color/dark_grey"
         android:textSize="@dimen/article_titles" />
 </RelativeLayout>

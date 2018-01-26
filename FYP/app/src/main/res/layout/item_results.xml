@@ -17,8 +17,9 @@
 
         <ImageView
             android:id="@+id/card_resultpic"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/card_image_width"
             android:layout_height="@dimen/card_image_height"
+            android:layout_marginLeft="@dimen/card_image_margin"
             android:scaleType="centerCrop"
             tools:src="@drawable/star" />
 

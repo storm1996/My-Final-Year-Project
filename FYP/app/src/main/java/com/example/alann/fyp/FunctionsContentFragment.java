@@ -67,15 +67,15 @@ public class FunctionsContentFragment extends Fragment {
         //private static final int LENGTH = 18;
 
         private final String[] mFunction;
-        //private final Drawable[] mPlaceAvatars;
+        private final Drawable[] mPlaceAvatars;
         public ContentAdapter(Context context) {
             Resources resources = context.getResources();
             mFunction = resources.getStringArray(R.array.functions);
             TypedArray a = resources.obtainTypedArray(R.array.avatar);
-            //mPlaceAvatars = new Drawable[a.length()];
-            //for (int i = 0; i < mPlaceAvatars.length; i++) {
-                //mPlaceAvatars[i] = a.getDrawable(i);
-            //}
+            mPlaceAvatars = new Drawable[a.length()];
+            for (int i = 0; i < mPlaceAvatars.length; i++) {
+                mPlaceAvatars[i] = a.getDrawable(i);
+            }
             a.recycle();
         }
 
@@ -86,7 +86,7 @@ public class FunctionsContentFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            //holder.avatar.setImageDrawable(mPlaceAvatars[position % mPlaceAvatars.length]);
+            holder.avatar.setImageDrawable(mPlaceAvatars[position % mPlaceAvatars.length]);
             holder.function.setText(mFunction[position % mFunction.length]);
         }
 
