@@ -25,7 +25,7 @@ import java.util.ArrayList;
 // CODE FOR THIS CLASS WAS TAKEN FROM https://developer.android.com/training/volley/index.html and http://www.techotopia.com/index.php/Implementing_Android_Custom_Gesture_Recognition_with_Android_Studio
 // FOR MORE DETAIL ON THESE REFERENCES PLEASE SEE REPORT
 
-public class MainActivity extends Activity implements GestureOverlayView.OnGesturePerformedListener{
+public class MainActivity extends AppCompatActivity implements GestureOverlayView.OnGesturePerformedListener{
     GestureLibrary mLibrary;
 
     @Override

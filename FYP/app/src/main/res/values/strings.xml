@@ -1,3 +1,4 @@
 <resources>
    <string name="app_name">iFlopp</string>
+   <string name="action_settings">Logout</string>
 </resources>
