@@ -96,6 +96,7 @@ public class MainMenu extends AppCompatActivity {
         adapter.addFragment(new UpcomingMatchListContentFragment(), "Fixtures");
         adapter.addFragment(new ResultsContentFragment(), "Results");
         adapter.addFragment(new FunctionsContentFragment(), "Functions");
+        adapter.addFragment(new TeamsStatsContentFragment(), "Teams Statistics");
         viewPager.setAdapter(adapter);
     }
 
