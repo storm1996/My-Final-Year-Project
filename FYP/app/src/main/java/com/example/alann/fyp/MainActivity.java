@@ -8,6 +8,7 @@ import android.gesture.GestureOverlayView;
 import android.gesture.Prediction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,11 @@ public class MainActivity extends AppCompatActivity implements GestureOverlayVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Adding Toolbar to Main screen
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(android.graphics.Color.WHITE);
 
         mLibrary = GestureLibraries.fromRawResource(this, R.raw.gestures);
         if(!mLibrary.load()){ // GETS CUSTOM PATTERNS I MADE AND PUT IN RAW FILE
