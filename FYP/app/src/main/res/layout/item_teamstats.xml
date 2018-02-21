@@ -11,24 +11,17 @@
         android:id="@+id/page_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/text_padding"
         tools:text="@string/team_name"
         android:textColor="@color/dark_grey"
         android:gravity="top|center_horizontal"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textSize="@dimen/article_subheading" />
 
-    <com.androidplot.xy.XYPlot
-        style="@style/APDefacto.Light"
-        android:id="@+id/plot"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/bar_chart"
         android:layout_below="@+id/page_title"
-        ap:title="Results This Season"
-        ap:rangeTitle="Points Scored"
-        ap:domainTitle="Away Points Scored"
-        ap:lineLabels="left|bottom"
-        ap:lineLabelRotationBottom="-45"/>
-
+        android:paddingTop="@dimen/text_padding"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/chart_height" />
 
 </RelativeLayout>
