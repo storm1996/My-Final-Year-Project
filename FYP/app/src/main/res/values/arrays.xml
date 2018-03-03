@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="fixtures">
+        <item>Liffey Celtics vs Glanmire</item>
+        <item>Liffey Celtics vs DCU Mercy</item>
+        <item>Brunell vs Liffey Celtics</item>
+        <item>Liffey Celtics vs Meteors</item>
+        <item>NUIG Mystics vs Liffey Celtics</item>
+        <item>Pyrobel Killester vs Liffey Celtics</item>
+        <item>IT Carlow vs Liffey Celtics</item>
+        <item>Liffey Celtics vs Maxol WIT Wildcats</item>
+        <item>Liffey Celtics vs Portlaoise Panthers</item>
+        <item>Glanmire vs Liffey Celtics</item>
+    </string-array>
+    <array name="avatar">
+        <item>@drawable/basketball</item>
+        <item>@drawable/basketballcourt</item>
+        <item>@drawable/basketball3</item>
+        <item>@drawable/basketballjersey</item>
+        <item>@drawable/basketball4</item>
+        <item>@drawable/basketball2</item>
+        <item>@drawable/trophy</item>
+    </array>
+    <string-array name="win_or_lose">
+        <item>Loss</item>
+        <item>Loss</item>
+        <item>Loss</item>
+        <item>Win</item>
+        <item>Loss</item>
+        <item>Loss</item>
+        <item>Loss</item>
+        <item>Win</item>
+        <item>Loss</item>
+        <item>Win</item>
+    </string-array>
+    <string-array name="functions">
+        <item>Record Match</item>
+        <item>Edit Fixtures</item>
+        <item>Statistics</item>
+        <item>Teams and Players</item>
+    </string-array>
+    <string-array name="results">
+        <item>35 - 40</item>
+        <item>73 - 82</item>
+        <item>78 - 44</item>
+        <item>88 - 20</item>
+        <item>65 - 64</item>
+        <item>68 - 61</item>
+        <item>79 - 63</item>
+        <item>77 - 55</item>
+        <item>55 - 63</item>
+        <item>53 - 72</item>
+    </string-array>
+    <string-array name="xPoints">
+        <item>35</item>
+        <item>73</item>
+        <item>78</item>
+        <item>88</item>
+        <item>65</item>
+        <item>68</item>
+        <item>79</item>
+        <item>77</item>
+        <item>55</item>
+        <item>53</item>
+    </string-array>
+    <string-array name="yPoints">
+        <item>40</item>
+        <item>82</item>
+        <item>44</item>
+        <item>20</item>
+        <item>64</item>
+        <item>61</item>
+        <item>63</item>
+        <item>55</item>
+        <item>63</item>
+        <item>72</item>
+    </string-array>
+    <string-array name="domainLabels">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>70</item>
+        <item>80</item>
+        <item>90</item>
+        <item>100</item>
+        <item>110</item>
+    </string-array>
+</resources>

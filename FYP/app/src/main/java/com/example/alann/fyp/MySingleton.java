@@ -10,6 +10,9 @@ import com.android.volley.toolbox.Volley;
  * Created by alann on 26/11/2017.
  */
 
+// CODE FOR THIS CLASS WAS TAKEN FROM https://developer.android.com/training/volley/index.html
+// FOR MORE DETAIL ON THIS REFERENCE PLEASE SEE REPORT
+// THIS CLASS CREATES A REQUEST QUEUE THAT WILL LIVE FOR THE LIFETIME OF THE ENTIRE APP
 public class MySingleton {
     private static MySingleton mInstance;
     private RequestQueue mRequestQueue;

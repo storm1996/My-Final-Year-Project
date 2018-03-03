@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">FYP</string>
+   <string name="app_name">iFlopp</string>
+   <string name="team_name">Liffey Celtics Team Statistics</string>
+   <string name="action_settings">Logout</string>
 </resources>
