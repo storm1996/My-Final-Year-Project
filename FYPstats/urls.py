@@ -21,7 +21,7 @@ from django.conf.urls import url, include
 router = routers.DefaultRouter()
 #makes sure that the API endpoints work
 router.register(r'api/statsHolder', views.statsHolderViewSet)
-router.register(r'api/user', views.userViewSet)
+router.register(r'api/User', views.userViewSet)
 router.register(r'api/team', views.teamViewSet)
 router.register(r'api/fixture', views.fixtureViewSet)
 router.register(r'api/player', views.playerViewSet)

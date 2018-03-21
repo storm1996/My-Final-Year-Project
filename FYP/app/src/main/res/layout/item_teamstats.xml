@@ -14,7 +14,7 @@
         tools:text="@string/team_name"
         android:textColor="@color/dark_grey"
         android:gravity="top|center_horizontal"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textAppearance="?attr/textAppearanceListItem"
         android:textSize="@dimen/article_subheading" />
 
     <com.github.mikephil.charting.charts.BarChart

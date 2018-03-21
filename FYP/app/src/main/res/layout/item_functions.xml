@@ -23,5 +23,6 @@
         android:paddingBottom="@dimen/text_padding"
         android:text="@string/app_name"
         android:textColor="@color/dark_grey"
-        android:textSize="@dimen/article_titles" />
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="@dimen/article_subheading" />
 </RelativeLayout>
