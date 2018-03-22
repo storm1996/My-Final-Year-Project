@@ -80,9 +80,9 @@ public class MatchRecordingSetup extends AppCompatActivity implements AdapterVie
                    }
                 });
         home_spinner = (Spinner) findViewById(R.id.home_spinner);
-        home_spinner.setOnItemSelectedListener(this);
         addItemsOnHomeSpinner();
         addListenerOnButton();
+        home_spinner.setOnItemSelectedListener(this);
     }
 
     private void addItemsOnHomeSpinner() {
@@ -114,10 +114,10 @@ public class MatchRecordingSetup extends AppCompatActivity implements AdapterVie
                         // TODO Auto-generated method stub
                     }
                 });
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, list);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                R.layout.spinner_item, list);
+        dataAdapter.setDropDownViewResource(R.layout.spinner_item);
         home_spinner.setAdapter(dataAdapter);
     }
 
