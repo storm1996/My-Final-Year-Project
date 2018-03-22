@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -33,12 +35,15 @@ import java.util.List;
  * Created by alann on 02/03/2018.
  */
 
-public class MatchRecordingSetup extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+//public class MatchRecordingSetup extends AppCompatActivity implements OnItemSelectedListener {
+public class MatchRecordingSetup extends AppCompatActivity {
 
+    private static final String TAG = "MatchRecordingSetup";
     private DrawerLayout mDrawerLayout;
     private Spinner home_spinner;
     private Button submit_button;
     List<String> list = new ArrayList<String>();
+    ArrayAdapter<String> dataAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +85,26 @@ public class MatchRecordingSetup extends AppCompatActivity implements AdapterVie
                    }
                 });
         home_spinner = (Spinner) findViewById(R.id.home_spinner);
+//        addItemsOnHomeSpinner();
+//        addListenerOnButton();
+//        home_spinner.setOnItemSelectedListener(this);
+        Log.d(TAG, "Setting spinner listener");
+        home_spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d(TAG, "Item selected");
+                Log.d(TAG, list.get((int)l));
+                Toast.makeText(adapterView.getContext(),"OnItemSelectedListener : " +
+                        adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Log.d(TAG, "Nothing selected");
+            }
+        });
         addItemsOnHomeSpinner();
         addListenerOnButton();
-        home_spinner.setOnItemSelectedListener(this);
     }
 
     private void addItemsOnHomeSpinner() {
@@ -115,7 +137,7 @@ public class MatchRecordingSetup extends AppCompatActivity implements AdapterVie
                     }
                 });
         MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+        dataAdapter = new ArrayAdapter<String>(this,
                 R.layout.spinner_item, list);
         dataAdapter.setDropDownViewResource(R.layout.spinner_item);
         home_spinner.setAdapter(dataAdapter);
@@ -124,7 +146,7 @@ public class MatchRecordingSetup extends AppCompatActivity implements AdapterVie
     // get the selected dropdown list value
     public void addListenerOnButton() {
 
-        home_spinner = (Spinner) findViewById(R.id.home_spinner);
+//        home_spinner = (Spinner) findViewById(R.id.home_spinner);
         submit_button = (Button) findViewById(R.id.btnSubmit);
 
         submit_button.setOnClickListener(new View.OnClickListener() {
@@ -159,13 +181,19 @@ public class MatchRecordingSetup extends AppCompatActivity implements AdapterVie
         return super.onOptionsItemSelected(item);
    }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(parent.getContext(),"OnItemSelectedListener : " +
-                        parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
-    }
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
+//    @Override
+//    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//        if(id == R.id.home_spinner){
+//            Log.d(TAG, list.get(position));
+//            Toast.makeText(parent.getContext(),"OnItemSelectedListener : " +
+//                    parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+//        }
+//
+//    }
+//    @Override
+//    public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//    }
 
-    }
 }
