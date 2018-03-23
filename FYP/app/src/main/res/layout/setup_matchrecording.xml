@@ -38,23 +38,26 @@
             android:layout_height="fill_parent"
             android:orientation="vertical" >
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/md_keylines"
+                android:text="Select Home Team"
+                android:id="@+id/btnHomeTeam"
+                android:textColor="@color/dark_grey"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="@dimen/article_subheading"/>
+
             <TextView
                 android:id="@+id/home_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/btnHomeTeam"
                 android:layout_marginLeft="@dimen/md_keylines"
-                android:text="Home Team:"
+                android:text="Home Team"
                 android:textColor="@color/dark_grey"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textSize="@dimen/article_subheading" />
-
-            <Spinner
-                android:id="@+id/home_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/md_keylines"
-                android:layout_toRightOf="@+id/home_textView"
-                android:spinnerMode="dropdown"/>
 
             <Button
                 android:id="@+id/btnSubmit"

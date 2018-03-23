@@ -1,12 +1,15 @@
 package com.example.alann.fyp;
 
 import android.os.Bundle;
+import android.content.DialogInterface;
 import android.support.design.widget.NavigationView;
 import android.support.graphics.drawable.VectorDrawableCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,7 +19,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
@@ -35,13 +40,13 @@ import java.util.List;
  * Created by alann on 02/03/2018.
  */
 
-//public class MatchRecordingSetup extends AppCompatActivity implements OnItemSelectedListener {
-public class MatchRecordingSetup extends AppCompatActivity {
+public class MatchRecordingSetup extends AppCompatActivity{
 
     private static final String TAG = "MatchRecordingSetup";
     private DrawerLayout mDrawerLayout;
-    private Spinner home_spinner;
     private Button submit_button;
+    private Button home_button;
+    private TextView home_textView;
     List<String> list = new ArrayList<String>();
     ArrayAdapter<String> dataAdapter;
 
@@ -84,31 +89,31 @@ public class MatchRecordingSetup extends AppCompatActivity {
                         return true;
                    }
                 });
-        home_spinner = (Spinner) findViewById(R.id.home_spinner);
-//        addItemsOnHomeSpinner();
-//        addListenerOnButton();
-//        home_spinner.setOnItemSelectedListener(this);
-        Log.d(TAG, "Setting spinner listener");
-        home_spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d(TAG, "Item selected");
-                Log.d(TAG, list.get((int)l));
-                Toast.makeText(adapterView.getContext(),"OnItemSelectedListener : " +
-                        adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
-            }
 
+        home_button =(Button)findViewById(R.id.btnHomeTeam);
+        home_textView =(TextView) findViewById(R.id.home_textView);
+        addItemsOnHomeButton();
+        home_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.d(TAG, "Nothing selected");
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                AlertDialog.Builder builder=new AlertDialog.Builder(MatchRecordingSetup.this);
+                builder.setTitle("Select Home Team").setAdapter(dataAdapter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO Auto-generated method stub
+
+                        //ListView lw = ((AlertDialog)dialog).getListView();
+                        //Object checkedItem = lw.getAdapter().getItem(lw.getCheckedItemPosition());
+                        //home_textView.setText((CharSequence) checkedItem);
+                    }
+                });
+                builder.show();
             }
         });
-        addItemsOnHomeSpinner();
-        addListenerOnButton();
     }
 
-    private void addItemsOnHomeSpinner() {
-        home_spinner = (Spinner) findViewById(R.id.home_spinner);
+    private void addItemsOnHomeButton() {
         String url = "http://178.62.2.33:8000/api/team/?format=json";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest // PARSING THE JSON VALUES
                 (url, new Response.Listener<JSONArray>() {
@@ -119,7 +124,6 @@ public class MatchRecordingSetup extends AppCompatActivity {
                             for(int i=0;i<response.length();i++){
                                 // Get current json object
                                 JSONObject player = response.getJSONObject(i);
-
                                 // Get the current team (json object) data
                                 String teamName = player.getString("team_name");
                                 //add to the dropdown
@@ -137,24 +141,19 @@ public class MatchRecordingSetup extends AppCompatActivity {
                     }
                 });
         MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
-        dataAdapter = new ArrayAdapter<String>(this,
-                R.layout.spinner_item, list);
-        dataAdapter.setDropDownViewResource(R.layout.spinner_item);
-        home_spinner.setAdapter(dataAdapter);
+        dataAdapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, list);
     }
 
     // get the selected dropdown list value
     public void addListenerOnButton() {
-
-//        home_spinner = (Spinner) findViewById(R.id.home_spinner);
         submit_button = (Button) findViewById(R.id.btnSubmit);
 
         submit_button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(MatchRecordingSetup.this, "OnClickListener : " +
-                        "\nHome Team : "+ String.valueOf(home_spinner.getSelectedItem()) , Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MatchRecordingSetup.this, "OnClickListener : " +
+                        //"\nHome Team : "+ String.valueOf(home_spinner.getSelectedItem()) , Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -180,20 +179,4 @@ public class MatchRecordingSetup extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
    }
-
-//    @Override
-//    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//
-//        if(id == R.id.home_spinner){
-//            Log.d(TAG, list.get(position));
-//            Toast.makeText(parent.getContext(),"OnItemSelectedListener : " +
-//                    parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
-//        }
-//
-//    }
-//    @Override
-//    public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//    }
-
 }
