@@ -32,48 +32,144 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_marginTop="@dimen/toolbar_padding"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical" >
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <Button
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:paddingTop="@dimen/toolbar_padding"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/md_keylines"
-                android:text="Select Home Team"
-                android:id="@+id/btnHomeTeam"
-                android:textColor="@color/dark_grey"
-                android:textAppearance="?attr/textAppearanceListItem"
-                android:textSize="@dimen/article_subheading"/>
+                android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/home_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/btnHomeTeam"
-                android:layout_marginLeft="@dimen/md_keylines"
-                android:text="Home Team"
-                android:textColor="@color/dark_grey"
-                android:textAppearance="?attr/textAppearanceListItem"
-                android:textSize="@dimen/article_subheading" />
+                <TextView
+                    android:id="@+id/home_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:text="Home Team Selection"
+                    android:textStyle="bold"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/article_subheading" />
 
-            <Button
-                android:id="@+id/btnSubmit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center|bottom"
-                android:layout_marginBottom="@dimen/md_keylines"
-                android:text="START MATCH"
-                android:textColor="@color/dark_grey"
-                android:textAppearance="?attr/textAppearanceListItem"
-                android:textSize="@dimen/article_subheading"/>
+                <Button
+                    android:id="@+id/btnHomeTeam"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/home_textView"
+                    android:layout_marginTop="@dimen/article_subheading"
+                    android:layout_marginLeft="@dimen/article_subheading"
+                    android:layout_marginRight="@dimen/article_subheading"
+                    android:text="Choose From Team List"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/article_subheading" />
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/away_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btnHomeTeam"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/article_titles"
+                    android:gravity="center"
+                    android:text="Away Team Selection"
+                    android:textStyle="bold"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/article_subheading" />
 
+                <Button
+                    android:id="@+id/btnAwayTeam"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/away_textView"
+                    android:layout_marginTop="@dimen/article_subheading"
+                    android:layout_marginLeft="@dimen/article_subheading"
+                    android:layout_marginRight="@dimen/article_subheading"
+                    android:text="Choose From Team List"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/article_subheading" />
+
+                <TextView
+                    android:id="@+id/venue_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btnAwayTeam"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/article_titles"
+                    android:gravity="center"
+                    android:text="Venue Selection"
+                    android:textStyle="bold"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/article_subheading" />
+
+                <Button
+                    android:id="@+id/btnVenueTeam"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/venue_textView"
+                    android:layout_marginTop="@dimen/article_subheading"
+                    android:layout_marginLeft="@dimen/article_subheading"
+                    android:layout_marginRight="@dimen/article_subheading"
+                    android:text="Choose From Venue List"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/article_subheading" />
+
+                <TextView
+                    android:id="@+id/date_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btnVenueTeam"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/article_titles"
+                    android:gravity="center"
+                    android:text="Date of Fixture"
+                    android:textStyle="bold"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/article_subheading" />
+
+                <Button
+                    android:id="@+id/btnDatePickerTeam"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/date_textView"
+                    android:layout_marginTop="@dimen/article_subheading"
+                    android:layout_marginLeft="@dimen/article_subheading"
+                    android:layout_marginRight="@dimen/article_subheading"
+                    android:text="Choose Date of Fixture"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/article_subheading" />
+
+                <Button
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btnDatePickerTeam"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center|bottom"
+                    android:layout_marginBottom="22dp"
+                    android:layout_marginTop="@dimen/article_subheading"
+                    android:text="START MATCH"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/article_subheading" />
+
+            </RelativeLayout>
+        </ScrollView>
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView
