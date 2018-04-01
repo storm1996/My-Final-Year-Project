@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -23,6 +22,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
+
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,13 +86,29 @@ public class MainMenu extends AppCompatActivity {
                 });
 
         // Adding Floating Action Button to bottom right of main view
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionMenu materialDesignFAM;
+        FloatingActionButton floatingActionButton1, floatingActionButton2, floatingActionButton3;
+
+        materialDesignFAM = (FloatingActionMenu) findViewById(R.id.fab);
+        floatingActionButton2 = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item2);
+        floatingActionButton3 = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item3);
+
+        floatingActionButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
                 Context context = v.getContext();
                 Intent intent = new Intent(context, MatchRecordingSetup.class);
+                context.startActivity(intent);
+            }
+        });
+
+        floatingActionButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, PickFixture.class);
                 context.startActivity(intent);
             }
         });

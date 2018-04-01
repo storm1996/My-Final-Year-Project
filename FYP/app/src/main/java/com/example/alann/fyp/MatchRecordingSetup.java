@@ -268,8 +268,8 @@ public class MatchRecordingSetup extends AppCompatActivity {
 
                 // Set text size
                 text_view.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
-                    // Set the list view one by one items text color
-                    text_view.setTextColor(Color.parseColor("#424242"));
+                // Set the list view one by one items text color
+                text_view.setTextColor(Color.parseColor("#424242"));
 
                 // Finally, return the modified items
                 return text_view;
@@ -329,7 +329,7 @@ public class MatchRecordingSetup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(MatchRecordingSetup.this, "OnClickListener : " +
-                        //"\nHome Team : "+ String.valueOf(home_spinner.getSelectedItem()) , Toast.LENGTH_SHORT).show();
+                //"\nHome Team : "+ String.valueOf(home_spinner.getSelectedItem()) , Toast.LENGTH_SHORT).show();
                 String url = "http://178.62.2.33:8000/api/fixture/?format=json";
                 JSONObject json = new JSONObject();
                 try {
@@ -366,7 +366,7 @@ public class MatchRecordingSetup extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-         //Inflate the menu; this adds items to the action bar if it is present.
+        //Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -384,5 +384,5 @@ public class MatchRecordingSetup extends AppCompatActivity {
             mDrawerLayout.openDrawer(GravityCompat.START);
         }
         return super.onOptionsItemSelected(item);
-   }
+    }
 }
