@@ -38,9 +38,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,6 +63,7 @@ public class PickFixture extends AppCompatActivity {
     private static final String TAG = "PickFixture";
     ListView listView;
     String[] nameArray;
+    String home, away = new String();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,20 +107,20 @@ public class PickFixture extends AppCompatActivity {
 
         getAllFixtures();
         Log.d(TAG, "nameArray!!!"+ Arrays.toString(nameArray));
-        CustomListAdapter listAdapter = new CustomListAdapter(this, nameArray);
-        listView = (ListView) findViewById(R.id.listviewID);
-        listView.setAdapter(listAdapter);
+       // CustomListAdapter listAdapter = new CustomListAdapter(this, nameArray);
+       // listView = (ListView) findViewById(R.id.listviewID);
+       // listView.setAdapter(listAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
+       // listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            //@Override
+            //public void onItemClick(AdapterView<?> parent, View view, int position,
+                                   // long id) {
                 //Intent intent = new Intent(PickFixture.this, DetailActivity.class);
                 //String message = nameArray[position];
                 //intent.putExtra("animal", message);
                 //startActivity(intent);
-            }
-        });
+           // }
+        //});
     }
 
     private void getAllFixtures() {
@@ -125,35 +129,30 @@ public class PickFixture extends AppCompatActivity {
                 (url, new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        nameArray = new String[(response.length())];
                         try{
                             // Loop through the array elements
                             for(int i=0;i<response.length();i++){
                                 // Get current json object
-                                JSONObject json_object = response.getJSONObject(i);
-                                // Get the current team (json object) data
-                                String home = json_object.getString("home_team");
-                                String away = json_object.getString("away_team");
-                                //add to the dropdown
-                                int j = i;
-                                String fixture = ((home)+" vs. "+away);
-                                Log.d(TAG, "fixture"+ fixture);
-                                Objects.equals(nameArray[j], fixture);
+                                JSONObject fixture = response.getJSONObject(i);
+
+                                // Get the current player (json object) data
+                                String home = fixture.getString("home_team");
+                                Log.d(TAG, "home!!!!!!!!!"+home);
+
                             }
                         }catch (JSONException e){
                             e.printStackTrace();
                         }
-                        Log.d(TAG, "nameArray"+ Arrays.toString(nameArray));
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO Auto-generated method stub
-                        Log.d(TAG, "ERROR");
+                        Log.d(TAG, "Error.Response: " + error.getMessage());
                     }
                 });
-        MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
+        MySingleton.getInstance(PickFixture.this).addToRequestQueue(jsonArrayRequest);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
