@@ -62,8 +62,8 @@ public class PickFixture extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private static final String TAG = "PickFixture";
     ListView listView;
-    String[] nameArray;
-    String home, away = new String();
+    String[] nameArray, team_array, home_array, away_array, date_array;
+    String home, away, date = new String();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +105,9 @@ public class PickFixture extends AppCompatActivity {
                     }
                 });
 
+        getAllTeams();
         getAllFixtures();
+        changeUrlsToNames();
         Log.d(TAG, "nameArray!!!"+ Arrays.toString(nameArray));
        // CustomListAdapter listAdapter = new CustomListAdapter(this, nameArray);
        // listView = (ListView) findViewById(R.id.listviewID);
@@ -123,12 +125,67 @@ public class PickFixture extends AppCompatActivity {
         //});
     }
 
+    private void changeUrlsToNames(){
+        for(int i=0;i<home_array.length;i++) {
+        int j = i;
+            if(){
+
+            }
+        }
+    }
+    private void getAllTeams(){
+        String url = "http://178.62.2.33:8000/api/team/?format=json";
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest // PARSING THE JSON VALUES
+                (url, new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        team_array = new String[(response.length()*2)];
+                        try{
+                            // Loop through the array elements
+                            for(int i=0;i<response.length();i++){
+                                // Get current json object
+                                JSONObject json_object = response.getJSONObject(i);
+                                // Get the current team (json object) data
+                                String id = json_object.getString("team_id");
+                                String type = json_object.getString("team_name");
+                                int j = i;
+
+                                //add to the array used for POST
+                                if (j == 0)
+                                {
+                                    team_array[j]= id;
+                                    team_array[j+=1]= type;
+                                }
+                                if(j != 0)
+                                {
+                                    team_array[j+=1]= id;
+                                    team_array[j+=1]= type;
+                                }
+
+                            }
+                            Log.d(TAG, "team_array"+Arrays.toString(team_array));
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                    }
+                });
+        MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
+    }
     private void getAllFixtures() {
         String url = "http://178.62.2.33:8000/api/fixture/?format=json";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest // PARSING THE JSON VALUES
                 (url, new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
+                        home_array = new String[(response.length())];
+                        away_array = new String[(response.length())];
+                        date_array = new String[(response.length())];
                         try{
                             // Loop through the array elements
                             for(int i=0;i<response.length();i++){
@@ -137,9 +194,18 @@ public class PickFixture extends AppCompatActivity {
 
                                 // Get the current player (json object) data
                                 String home = fixture.getString("home_team");
-                                Log.d(TAG, "home!!!!!!!!!"+home);
+                                String away = fixture.getString("away_team");
+                                String date = fixture.getString("fixture_date");
+                                int j = i;
 
+                                //add to the array used for POST
+                                home_array[j]= home;
+                                away_array[j]= away;
+                                date_array[j]= date;
                             }
+                            Log.d(TAG, "home"+Arrays.toString(home_array));
+                            Log.d(TAG, "away"+Arrays.toString(away_array));
+                            Log.d(TAG, "date"+Arrays.toString(date_array));
                         }catch (JSONException e){
                             e.printStackTrace();
                         }
@@ -175,4 +241,5 @@ public class PickFixture extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
