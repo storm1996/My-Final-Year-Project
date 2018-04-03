@@ -40,15 +40,15 @@ public class UpcomingMatchListContentFragment extends Fragment {
             super(inflater.inflate(R.layout.item_upcomingmatchlist, parent, false));
             avatar = (ImageView) itemView.findViewById(R.id.list_avatar);
             fixture = (TextView) itemView.findViewById(R.id.list_title);
-           // itemView.setOnClickListener(new View.OnClickListener() {
-              //  @Override
-              //  public void onClick(View v) {
-                 //   Context context = v.getContext();
-                 //   Intent intent = new Intent(context, DetailActivity.class);
-                 //   intent.putExtra(DetailActivity.EXTRA_POSITION, getAdapterPosition());
-                 //   context.startActivity(intent);
-               // }
-           // });
+            // itemView.setOnClickListener(new View.OnClickListener() {
+            //  @Override
+            //  public void onClick(View v) {
+            //   Context context = v.getContext();
+            //   Intent intent = new Intent(context, DetailActivity.class);
+            //   intent.putExtra(DetailActivity.EXTRA_POSITION, getAdapterPosition());
+            //   context.startActivity(intent);
+            // }
+            // });
         }
     }
 
@@ -57,7 +57,7 @@ public class UpcomingMatchListContentFragment extends Fragment {
 
     public static class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
         // Set numbers of List in RecyclerView.
-       // private static final int LENGTH = 18;
+        // private static final int LENGTH = 18;
 
         private final String[] mFixtures;
         private final Drawable[] mPlaceAvatars;

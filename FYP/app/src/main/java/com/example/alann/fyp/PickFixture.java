@@ -62,8 +62,9 @@ public class PickFixture extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private static final String TAG = "PickFixture";
     ListView listView;
-    String[] nameArray, team_array, home_array, away_array, date_array;
-    String home, away, date = new String();
+    String[] nameArray, name_array_home, name_array_away, team_array, home_array, away_array, date_array, id_array;
+    String selected_home_id, selected_away_id, selected_fixture_id = new String();
+    int length, team_length = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,32 +107,55 @@ public class PickFixture extends AppCompatActivity {
                 });
 
         getAllTeams();
-        getAllFixtures();
-        changeUrlsToNames();
-        Log.d(TAG, "nameArray!!!"+ Arrays.toString(nameArray));
-       // CustomListAdapter listAdapter = new CustomListAdapter(this, nameArray);
-       // listView = (ListView) findViewById(R.id.listviewID);
-       // listView.setAdapter(listAdapter);
-
-       // listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            //@Override
-            //public void onItemClick(AdapterView<?> parent, View view, int position,
-                                   // long id) {
-                //Intent intent = new Intent(PickFixture.this, DetailActivity.class);
-                //String message = nameArray[position];
-                //intent.putExtra("animal", message);
-                //startActivity(intent);
-           // }
-        //});
     }
 
     private void changeUrlsToNames(){
-        for(int i=0;i<home_array.length;i++) {
-        int j = i;
-            if(){
-
+        name_array_home = new String[length];
+        for(int i=0;i<length;i++) {
+            for (int j = 0; j < (team_length*2); j++) {
+                int k = i;
+                int l = j;
+                if (home_array[k].equals("http://178.62.2.33:8000/api/team/"+team_array[l]+"/?format=json")) {
+                    name_array_home[k] = (team_array[l += 1]);
+                }
             }
         }
+        Log.d(TAG, "name_array_home"+Arrays.toString(name_array_home));
+
+        name_array_away = new String[length];
+        for(int i=0;i<length;i++) {
+            for (int j = 0; j < (team_length*2); j++) {
+                int k = i;
+                int l = j;
+                if (away_array[k].equals("http://178.62.2.33:8000/api/team/"+team_array[l]+"/?format=json")) {
+                    name_array_away[k] = (team_array[l += 1]);
+                }
+            }
+        }
+        Log.d(TAG, "name_array_home"+Arrays.toString(name_array_away));
+
+        nameArray = new String[length];
+        for(int i=0;i<length;i++) {
+            nameArray[i] = name_array_home[i]+" vs. "+name_array_away[i]+"\n"+date_array[i];
+        }
+
+        CustomListAdapter listAdapter = new CustomListAdapter(this, nameArray);
+        listView = (ListView) findViewById(R.id.listviewID);
+        listView.setAdapter(listAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selected_fixture_id = id_array[position];
+                selected_home_id = home_array[position];
+                selected_away_id = away_array[position];
+                Intent intent = new Intent(PickFixture.this, StatInput.class);
+                intent.putExtra("FIXTURE_TEAM_ID", selected_fixture_id);
+                intent.putExtra("AWAY_TEAM_ID", selected_away_id);
+                intent.putExtra("HOME_TEAM_ID", selected_home_id);
+                startActivity(intent);
+            }
+        });
     }
     private void getAllTeams(){
         String url = "http://178.62.2.33:8000/api/team/?format=json";
@@ -150,6 +174,7 @@ public class PickFixture extends AppCompatActivity {
                                 String type = json_object.getString("team_name");
                                 int j = i;
 
+                                team_length += 1;
                                 //add to the array used for POST
                                 if (j == 0)
                                 {
@@ -164,6 +189,8 @@ public class PickFixture extends AppCompatActivity {
 
                             }
                             Log.d(TAG, "team_array"+Arrays.toString(team_array));
+                            Log.d(TAG, "team_length"+(team_length));
+                            getAllFixtures();
                         }catch (JSONException e){
                             e.printStackTrace();
                         }
@@ -186,6 +213,7 @@ public class PickFixture extends AppCompatActivity {
                         home_array = new String[(response.length())];
                         away_array = new String[(response.length())];
                         date_array = new String[(response.length())];
+                        id_array = new String[(response.length())];
                         try{
                             // Loop through the array elements
                             for(int i=0;i<response.length();i++){
@@ -196,16 +224,22 @@ public class PickFixture extends AppCompatActivity {
                                 String home = fixture.getString("home_team");
                                 String away = fixture.getString("away_team");
                                 String date = fixture.getString("fixture_date");
+                                String id = fixture.getString("fixture_id");
                                 int j = i;
 
                                 //add to the array used for POST
                                 home_array[j]= home;
                                 away_array[j]= away;
                                 date_array[j]= date;
+                                id_array[j]= id;
+                                length += 1;
                             }
                             Log.d(TAG, "home"+Arrays.toString(home_array));
                             Log.d(TAG, "away"+Arrays.toString(away_array));
                             Log.d(TAG, "date"+Arrays.toString(date_array));
+                            Log.d(TAG, "id"+Arrays.toString(id_array));
+                            Log.d(TAG, "length"+(length));
+                            changeUrlsToNames();
                         }catch (JSONException e){
                             e.printStackTrace();
                         }

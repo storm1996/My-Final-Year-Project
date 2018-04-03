@@ -348,6 +348,7 @@ public class MatchRecordingSetup extends AppCompatActivity {
                             public void onResponse(JSONObject response) {
                                 // response
                                 Log.d(TAG, String.valueOf(response));
+                                finish();
                             }
                         },
                         new Response.ErrorListener()

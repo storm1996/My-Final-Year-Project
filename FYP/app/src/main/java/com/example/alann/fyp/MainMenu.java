@@ -115,7 +115,7 @@ public class MainMenu extends AppCompatActivity {
     }
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new UpcomingMatchListContentFragment(), "Fixtures");
+        adapter.addFragment(new UpcomingMatchListContentFragment(), "Upcoming Fixtures");
         adapter.addFragment(new ResultsContentFragment(), "Results");
         adapter.addFragment(new FunctionsContentFragment(), "Functions");
         adapter.addFragment(new TeamsStatsContentFragment(), "Teams Statistics");
