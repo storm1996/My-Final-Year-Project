@@ -2,6 +2,7 @@ package com.example.alann.fyp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.gesture.Gesture;
 import android.gesture.GestureLibraries;
 import android.gesture.GestureLibrary;
@@ -20,14 +21,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,9 +50,13 @@ public class StatInput extends AppCompatActivity implements GestureOverlayView.O
 
     private static final String TAG = "StatInput";
     private DrawerLayout mDrawerLayout;
-    String fixture_id, home_id, away_id, selectedPlayer, result, teamSelected = new String();
+    TextView teamSelectedView, playerSelectedView, actionSelectedView;
+    TextView circlePlayerView, squarePlayerView, trianglePlayerView, semicirclePlayerView, heartPlayerView;
+    String fixture_id, home_id, away_id, selectedPlayer, result, teamSelected, selectedType = new String();
     String circle_player_home, square_player_home, triangle_player_home, semicircle_player_home, heart_player_home = new String();
     String circle_player_away, square_player_away, triangle_player_away, semicircle_player_away, heart_player_away = new String();
+    String circle_player_home_name, square_player_home_name, triangle_player_home_name, semicircle_player_home_name, heart_player_home_name = new String();
+    String circle_player_away_name, square_player_away_name, triangle_player_away_name, semicircle_player_away_name, heart_player_away_name = new String();
     private GestureLibrary mGestureLibrary;
     ArrayList<Prediction> predictions = new ArrayList<>();
 
@@ -51,6 +64,7 @@ public class StatInput extends AppCompatActivity implements GestureOverlayView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.input_stat);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         mGestureLibrary = GestureLibraries.fromRawResource(this, R.raw.gestures);
 
         if (!mGestureLibrary.load()) {
@@ -129,7 +143,19 @@ public class StatInput extends AppCompatActivity implements GestureOverlayView.O
         Log.d(TAG, "fixture_id"+(fixture_id));
         Log.d(TAG, "home_id"+(home_id));
         Log.d(TAG, "away_id"+(away_id));
+        selectedPlayer = "0";
+        selectedType = "0";
 
+        teamSelectedView = (TextView) findViewById(R.id.selectedTeam);
+
+        circlePlayerView = (TextView) findViewById(R.id.circleView);
+        squarePlayerView = (TextView) findViewById(R.id.squareView);
+        trianglePlayerView = (TextView) findViewById(R.id.triangleView);
+        semicirclePlayerView = (TextView) findViewById(R.id.semicircleView);
+        heartPlayerView = (TextView) findViewById(R.id.heartView);
+
+        playerSelectedView = (TextView) findViewById(R.id.playerSelectedView);
+        actionSelectedView = (TextView) findViewById(R.id.actionSelectedView);
     }
 
     @Override
@@ -146,6 +172,18 @@ public class StatInput extends AppCompatActivity implements GestureOverlayView.O
                     triangle_player_home = data.getStringExtra("TRIANGLE PLAYER");
                     semicircle_player_home = data.getStringExtra("SEMICIRCLE PLAYER");
                     heart_player_home = data.getStringExtra("HEART PLAYER");
+
+                    circle_player_home_name = data.getStringExtra("CIRCLE PLAYER NAME");
+                    square_player_home_name = data.getStringExtra("SQUARE PLAYER NAME");
+                    triangle_player_home_name = data.getStringExtra("TRIANGLE PLAYER NAME");
+                    semicircle_player_home_name = data.getStringExtra("SEMICIRCLE PLAYER NAME");
+                    heart_player_home_name = data.getStringExtra("HEART PLAYER NAME");
+
+                    circlePlayerView.setText("Circle: "+circle_player_home_name);
+                    squarePlayerView.setText("Square: "+square_player_home_name);
+                    trianglePlayerView.setText("Triangle: "+triangle_player_home_name);
+                    semicirclePlayerView.setText("Semi-Circle: "+semicircle_player_home_name);
+                    heartPlayerView.setText("Heart: "+heart_player_home_name);
                 }
                 else if(teamSelected.equals(away_id)){
                     circle_player_away = data.getStringExtra("CIRCLE PLAYER");
@@ -153,6 +191,18 @@ public class StatInput extends AppCompatActivity implements GestureOverlayView.O
                     triangle_player_away = data.getStringExtra("TRIANGLE PLAYER");
                     semicircle_player_away = data.getStringExtra("SEMICIRCLE PLAYER");
                     heart_player_away = data.getStringExtra("HEART PLAYER");
+
+                    circle_player_away_name = data.getStringExtra("CIRCLE PLAYER NAME");
+                    square_player_away_name = data.getStringExtra("SQUARE PLAYER NAME");
+                    triangle_player_away_name = data.getStringExtra("TRIANGLE PLAYER NAME");
+                    semicircle_player_away_name = data.getStringExtra("SEMICIRCLE PLAYER NAME");
+                    heart_player_away_name = data.getStringExtra("HEART PLAYER NAME");
+
+                    circlePlayerView.setText("Circle: "+circle_player_away_name);
+                    squarePlayerView.setText("Square: "+square_player_away_name);
+                    trianglePlayerView.setText("Triangle: "+triangle_player_away_name);
+                    semicirclePlayerView.setText("Semi-Circle: "+semicircle_player_away_name);
+                    heartPlayerView.setText("Heart: "+heart_player_away_name);
                 }
             }
         } catch (Exception ex) {
@@ -193,26 +243,28 @@ public class StatInput extends AppCompatActivity implements GestureOverlayView.O
     }
 
     private void makeDecisions() {
-        selectedPlayer = "0";
+        //selectedPlayer = "0"; move to input
         if(result.equals("left") || result.equals("right")) {
             switch (result) {
                 case ("left"):
                     Log.d(TAG, "left");
                     teamSelected = away_id;
-                    Log.d(TAG, "circle_player"+(circle_player_away));
-                    Log.d(TAG, "square_player"+(square_player_away));
-                    Log.d(TAG, "triangle_player"+(triangle_player_away));
-                    Log.d(TAG, "semicircle_player"+(semicircle_player_away));
-                    Log.d(TAG, "heart_player"+(heart_player_away));
+                    teamSelectedView.setText("Away");
+                    circlePlayerView.setText("Circle: "+circle_player_away_name);
+                    squarePlayerView.setText("Square: "+square_player_away_name);
+                    trianglePlayerView.setText("Triangle: "+triangle_player_away_name);
+                    semicirclePlayerView.setText("Semi-Circle: "+semicircle_player_away_name);
+                    heartPlayerView.setText("Heart: "+heart_player_away_name);
                     break;
                 case ("right"):
                     Log.d(TAG, "right");
                     teamSelected = home_id;
-                    Log.d(TAG, "circle_player"+(circle_player_home));
-                    Log.d(TAG, "square_player"+(square_player_home));
-                    Log.d(TAG, "triangle_player"+(triangle_player_home));
-                    Log.d(TAG, "semicircle_player"+(semicircle_player_home));
-                    Log.d(TAG, "heart_player"+(heart_player_home));
+                    teamSelectedView.setText("Home");
+                    circlePlayerView.setText("Circle: "+circle_player_home_name);
+                    squarePlayerView.setText("Square: "+square_player_home_name);
+                    trianglePlayerView.setText("Triangle: "+triangle_player_home_name);
+                    semicirclePlayerView.setText("Semi-Circle: "+semicircle_player_home_name);
+                    heartPlayerView.setText("Heart: "+heart_player_home_name);
                     break;
             }
         }
@@ -221,53 +273,128 @@ public class StatInput extends AppCompatActivity implements GestureOverlayView.O
             switch (result) {
                 case ("circle"):
                     Log.d(TAG, "circle");
+                    if(teamSelected == away_id){
+                        selectedPlayer = circle_player_away;
+                        playerSelectedView.setText("Chosen Player: "+circle_player_away_name);
+                    }
+                    if(teamSelected == home_id){
+                        selectedPlayer = circle_player_home;
+                        playerSelectedView.setText("Chosen Player: "+circle_player_home_name);
+                    }
+                    Log.d(TAG, "selected_player"+(selectedPlayer));
                     break;
                 case ("square"):
                     Log.d(TAG, "square");
+                    if(teamSelected == away_id){
+                        selectedPlayer = square_player_away;
+                        playerSelectedView.setText("Chosen Player: "+square_player_away_name);
+                    }
+                    if(teamSelected == home_id){
+                        selectedPlayer = square_player_home;
+                        playerSelectedView.setText("Chosen Player: "+square_player_home_name);
+                    }
+                    Log.d(TAG, "selected_player"+(selectedPlayer));
                     break;
                 case ("triangle"):
                     Log.d(TAG, "triangle");
+                    if(teamSelected == away_id){
+                        selectedPlayer = triangle_player_away;
+                        playerSelectedView.setText("Chosen Player: "+triangle_player_away_name);
+                    }
+                    if(teamSelected == home_id){
+                        selectedPlayer = triangle_player_home;
+                        playerSelectedView.setText("Chosen Player: "+triangle_player_home_name);
+                    }
+                    Log.d(TAG, "selected_player"+(selectedPlayer));
                     break;
                 case ("semicircle"):
                     Log.d(TAG, "semi-circle");
+                    if(teamSelected == away_id){
+                        selectedPlayer = semicircle_player_away;
+                        playerSelectedView.setText("Chosen Player: "+semicircle_player_away_name);
+                    }
+                    if(teamSelected == home_id){
+                        selectedPlayer = semicircle_player_home;
+                        playerSelectedView.setText("Chosen Player: "+semicircle_player_home_name);
+                    }
+                    Log.d(TAG, "selected_player"+(selectedPlayer));
                     break;
                 case ("heart"):
                     Log.d(TAG, "heart");
+                    if(teamSelected == away_id){
+                        selectedPlayer = heart_player_away;
+                        playerSelectedView.setText("Chosen Player: "+heart_player_away_name);
+                    }
+                    if(teamSelected == home_id){
+                        selectedPlayer = heart_player_home;
+                        playerSelectedView.setText("Chosen Player: "+heart_player_home_name);
+                    }
+                    Log.d(TAG, "selected_player"+(selectedPlayer));
                     break;
             }
         }
 
-        else if((result.equals("assist") || result.equals("block") || result.equals("rebound") || result.equals("defensive-rebound") || result.equals("foul") || result.equals("steal") || result.equals("turnover") || result.equals("one") || result.equals("two") || result.equals("three")) && selectedPlayer != ("0")){
+        else if((result.equals("assist") || result.equals("block") || result.equals("rebound") || result.equals("defensive-rebound") || result.equals("foul") || result.equals("steal") || result.equals("turnover") || result.equals("one") || result.equals("two") || result.equals("three")) && (selectedPlayer != "0") && (selectedType == "0")){
             switch (result) {
                 case ("assist"):
                     Log.d(TAG, "assist");
+                    selectedType ="assist";
+                    actionSelectedView.setText("Chosen Stat: "+selectedType);
+                    insertTheStat();
                     break;
                 case ("block"):
                     Log.d(TAG, "block");
+                    selectedType ="block";
+                    actionSelectedView.setText("Chosen Stat: "+selectedType);
+                    insertTheStat();
                     break;
                 case ("rebound"):
                     Log.d(TAG, "rebound");
+                    selectedType ="rebound";
+                    actionSelectedView.setText("Chosen Stat: "+selectedType);
+                    insertTheStat();
                     break;
                 case ("defensive-rebound"):
                     Log.d(TAG, "defensive-rebound");
+                    selectedType ="defensive-rebound";
+                    actionSelectedView.setText("Chosen Stat: "+selectedType);
+                    insertTheStat();
                     break;
                 case ("foul"):
                     Log.d(TAG, "foul");
+                    selectedType ="foul";
+                    actionSelectedView.setText("Chosen Stat: "+selectedType);
+                    insertTheStat();
                     break;
                 case ("steal"):
                     Log.d(TAG, "steal");
+                    selectedType ="steal";
+                    actionSelectedView.setText("Chosen Stat: "+selectedType);
+                    insertTheStat();
                     break;
                 case ("turnover"):
                     Log.d(TAG, "turnover");
+                    selectedType ="turnover";
+                    actionSelectedView.setText("Chosen Stat: "+selectedType);
+                    insertTheStat();
                     break;
                 case ("one"):
                     Log.d(TAG, "one");
+                    selectedType ="one";
+                    actionSelectedView.setText("Chosen Stat: "+selectedType);
+                    insertTheStat();
                     break;
                 case ("two"):
                     Log.d(TAG, "two");
+                    selectedType ="two";
+                    actionSelectedView.setText("Chosen Stat: "+selectedType);
+                    insertTheStat();
                     break;
                 case ("three"):
                     Log.d(TAG, "three");
+                    selectedType ="three";
+                    actionSelectedView.setText("Chosen Stat: "+selectedType);
+                    insertTheStat();
                     break;
             }
         }
@@ -277,5 +404,41 @@ public class StatInput extends AppCompatActivity implements GestureOverlayView.O
         else{
             Log.d(TAG, "Something went wrong");
         }
+    }
+
+    private void insertTheStat() {
+        String url = "http://178.62.2.33:8000/api/action/?format=json";
+        JSONObject json = new JSONObject();
+        try {
+            json.put("action_type", selectedType);
+            json.put("player_id", "http://178.62.2.33:8000/api/player/"+selectedPlayer+"/?format=json");
+            json.put("fixture_id", "http://178.62.2.33:8000/api/fixture/"+fixture_id+"/?format=json");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        final JsonObjectRequest postRequest = new JsonObjectRequest(url, json,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // response
+                        Log.d(TAG, String.valueOf(response));
+                        selectedPlayer = "0";
+                        selectedType = "0";
+                        playerSelectedView.setText("Chosen Player: ");
+                        actionSelectedView.setText("Chosen Stat: ");
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d(TAG, "Error.Response: " + error.getMessage());
+                    }
+                }
+        );
+        MySingleton.getInstance(StatInput.this).addToRequestQueue(postRequest);
     }
 }

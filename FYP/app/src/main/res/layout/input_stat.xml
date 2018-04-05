@@ -39,8 +39,105 @@
             android:layout_height="match_parent"
             android:eventsInterceptionEnabled="true"
             android:gestureStrokeType="multiple"
+            android:gestureColor="@color/colorAccent"
             android:orientation="vertical">
 
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:paddingTop="@dimen/image_tile_height"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/selectedTeam"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|top"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="40dp"
+                    android:text="Select a Team"
+                    android:textSize="50sp" />
+
+                <TextView
+                    android:id="@+id/circleView"
+                    android:textSize="@dimen/article_subheading"
+                    android:gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/selectedTeam"
+                    android:text=" "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/article_titles"/>
+
+                <TextView
+                    android:id="@+id/squareView"
+                    android:textSize="@dimen/article_subheading"
+                    android:gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/circleView"
+                    android:text=" "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/article_titles"/>
+
+                <TextView
+                    android:id="@+id/triangleView"
+                    android:textSize="@dimen/article_subheading"
+                    android:gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/squareView"
+                    android:text=" "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/article_titles"/>
+
+                <TextView
+                    android:id="@+id/semicircleView"
+                    android:textSize="@dimen/article_subheading"
+                    android:gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/triangleView"
+                    android:text=" "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/article_titles"/>
+
+                <TextView
+                    android:id="@+id/heartView"
+                    android:textSize="@dimen/article_subheading"
+                    android:gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/semicircleView"
+                    android:text=" "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/article_titles"/>
+
+                <TextView
+                    android:id="@+id/playerSelectedView"
+                    android:textSize="@dimen/article_subheading"
+                    android:gravity="left"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/heartView"
+                    android:text=" "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="@dimen/toolbar_padding"/>
+
+                <TextView
+                    android:id="@+id/actionSelectedView"
+                    android:textSize="@dimen/article_subheading"
+                    android:gravity="left"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/playerSelectedView"
+                    android:text=" "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="@dimen/article_titles"/>
+
+            </RelativeLayout>
             <com.github.clans.fab.FloatingActionMenu
                 android:id="@+id/fab"
                 android:layout_width="wrap_content"

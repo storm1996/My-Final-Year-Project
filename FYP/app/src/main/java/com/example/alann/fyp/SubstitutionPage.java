@@ -57,6 +57,7 @@ public class SubstitutionPage  extends AppCompatActivity {
     String selectedSquare, selectedTriangle, selectedSemicircle, selectedHeart;
     String[] player_array, names_array;
     String circle_value, square_value, triangle_value, semicircle_value, heart_value = new String();
+    String circle_value_name, square_value_name, triangle_value_name, semicircle_value_name, heart_value_name = new String();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +103,11 @@ public class SubstitutionPage  extends AppCompatActivity {
         triangle_value = " ";
         semicircle_value = " ";
         heart_value = " ";
+        circle_value_name = " ";
+        square_value_name = " ";
+        triangle_value_name = " ";
+        semicircle_value_name = " ";
+        heart_value_name = " ";
         team_id = getIntent().getStringExtra("FIXTURE_TEAM_ID");
         Log.d(TAG, "team_id"+team_id);
 
@@ -122,11 +128,13 @@ public class SubstitutionPage  extends AppCompatActivity {
                             if ((selectedCircle.equals(names_array[i]))) {
                                 int j = i;
                                 circle_value = player_array[j];
+                                circle_value_name = selectedCircle;
                                 Log.d(TAG, "Circle Player Value" + String.valueOf(circle_value));
                             }
                         }
                         if(square_value.equals(circle_value) || triangle_value.equals(circle_value) || semicircle_value.equals(circle_value) || heart_value.equals(circle_value)){
                             circle_value = " ";
+                            circle_value_name = " ";
                             Toast.makeText(SubstitutionPage.this, "Player Chosen Already", Toast.LENGTH_LONG).show();
                         }
                         else{
@@ -153,11 +161,13 @@ public class SubstitutionPage  extends AppCompatActivity {
                             if ((selectedSquare.equals(names_array[i]))) {
                                 int j = i;
                                 square_value = player_array[j];
+                                square_value_name = selectedSquare;
                                 Log.d(TAG, "Square Player Value" + String.valueOf(square_value));
                             }
                         }
                         if(circle_value.equals(square_value) || triangle_value.equals(square_value) || semicircle_value.equals(square_value) || heart_value.equals(square_value)){
                             square_value = " ";
+                            square_value_name = " ";
                             Log.d(TAG, "Square Player Value" + String.valueOf(square_value));
                             Toast.makeText(SubstitutionPage.this, "Player Chosen Already", Toast.LENGTH_LONG).show();
                         }
@@ -185,11 +195,13 @@ public class SubstitutionPage  extends AppCompatActivity {
                             if ((selectedTriangle.equals(names_array[i]))) {
                                 int j = i;
                                 triangle_value = player_array[j];
+                                triangle_value_name = selectedTriangle;
                                 Log.d(TAG, "Triangle Player Value" + String.valueOf(triangle_value));
                             }
                         }
                         if(circle_value.equals(triangle_value) || square_value.equals(triangle_value) || semicircle_value.equals(triangle_value) || heart_value.equals(triangle_value)){
-                            square_value = " ";
+                            triangle_value = " ";
+                            triangle_value_name = " ";
                             Log.d(TAG, "Triangle Player Value" + String.valueOf(square_value));
                             Toast.makeText(SubstitutionPage.this, "Player Chosen Already", Toast.LENGTH_LONG).show();
                         }
@@ -217,11 +229,13 @@ public class SubstitutionPage  extends AppCompatActivity {
                             if ((selectedSemicircle.equals(names_array[i]))) {
                                 int j = i;
                                 semicircle_value = player_array[j];
+                                semicircle_value_name = selectedSemicircle;
                                 Log.d(TAG, "SemiCircle Player Value" + String.valueOf(semicircle_value));
                             }
                         }
                         if(circle_value.equals(semicircle_value) || square_value.equals(semicircle_value) || triangle_value.equals(semicircle_value) || heart_value.equals(semicircle_value)){
                             semicircle_value = " ";
+                            semicircle_value_name = " ";
                             Log.d(TAG, "SemiCircle Player Value" + String.valueOf(semicircle_value));
                             Toast.makeText(SubstitutionPage.this, "Player Chosen Already", Toast.LENGTH_LONG).show();
                         }
@@ -249,11 +263,13 @@ public class SubstitutionPage  extends AppCompatActivity {
                             if ((selectedHeart.equals(names_array[i]))) {
                                 int j = i;
                                 heart_value = player_array[j];
+                                heart_value_name = selectedHeart;
                                 Log.d(TAG, "Heart Player Value" + String.valueOf(heart_value));
                             }
                         }
                         if(circle_value.equals(heart_value) || square_value.equals(heart_value) || triangle_value.equals(heart_value) || semicircle_value.equals(heart_value)){
                             heart_value = " ";
+                            heart_value_name = " ";
                             Log.d(TAG, "Heart Player Value" + String.valueOf(heart_value));
                             Toast.makeText(SubstitutionPage.this, "Player Chosen Already", Toast.LENGTH_LONG).show();
                         }
@@ -271,18 +287,29 @@ public class SubstitutionPage  extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Intent subintent = getIntent();
-                // put the message to return as result in Intent
-                subintent.putExtra("CIRCLE PLAYER",circle_value);
-                subintent.putExtra("SQUARE PLAYER",square_value);
-                subintent.putExtra("TRIANGLE PLAYER",triangle_value);
-                subintent.putExtra("SEMICIRCLE PLAYER",semicircle_value);
-                subintent.putExtra("HEART PLAYER",heart_value);
-                Log.d(TAG, "heart _ value"+ heart_value);
-                // Set The Result in Intent
-                setResult(RESULT_OK,subintent);
-                //SubstitutionPage.this.
-                finish();
+                if(circle_value != " " && square_value != " " && triangle_value != " " && semicircle_value != " " && heart_value != " ") {
+                    Intent subintent = getIntent();
+                    // put the message to return as result in Intent
+                    subintent.putExtra("CIRCLE PLAYER", circle_value);
+                    subintent.putExtra("SQUARE PLAYER", square_value);
+                    subintent.putExtra("TRIANGLE PLAYER", triangle_value);
+                    subintent.putExtra("SEMICIRCLE PLAYER", semicircle_value);
+                    subintent.putExtra("HEART PLAYER", heart_value);
+
+                    subintent.putExtra("CIRCLE PLAYER NAME", circle_value_name);
+                    subintent.putExtra("SQUARE PLAYER NAME", square_value_name);
+                    subintent.putExtra("TRIANGLE PLAYER NAME", triangle_value_name);
+                    subintent.putExtra("SEMICIRCLE PLAYER NAME", semicircle_value_name);
+                    subintent.putExtra("HEART PLAYER NAME", heart_value_name);
+                    Log.d(TAG, "heart _ value" + heart_value);
+                    // Set The Result in Intent
+                    setResult(RESULT_OK, subintent);
+                    //SubstitutionPage.this.
+                    finish();
+                }
+                if(circle_value == " " || square_value == " " || triangle_value == " " || semicircle_value == " " || heart_value == " "){
+                    Toast.makeText(SubstitutionPage.this, "Forgotten Player", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
