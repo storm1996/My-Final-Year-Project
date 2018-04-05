@@ -23,6 +23,7 @@
         <activity android:name=".MatchRecordingSetup" />
         <activity android:name=".PickFixture" />
         <activity android:name=".StatInput" />
+        <activity android:name=".SubstitutionPage" />
 
     </application>
 
