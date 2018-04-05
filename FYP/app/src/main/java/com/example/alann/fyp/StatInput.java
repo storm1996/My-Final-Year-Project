@@ -42,7 +42,8 @@ public class StatInput extends AppCompatActivity implements GestureOverlayView.O
     private static final String TAG = "StatInput";
     private DrawerLayout mDrawerLayout;
     String fixture_id, home_id, away_id, selectedPlayer, result, teamSelected = new String();
-    String circle_player, square_player, triangle_player, semicircle_player, heart_player = new String();
+    String circle_player_home, square_player_home, triangle_player_home, semicircle_player_home, heart_player_home = new String();
+    String circle_player_away, square_player_away, triangle_player_away, semicircle_player_away, heart_player_away = new String();
     private GestureLibrary mGestureLibrary;
     ArrayList<Prediction> predictions = new ArrayList<>();
 
@@ -139,11 +140,20 @@ public class StatInput extends AppCompatActivity implements GestureOverlayView.O
 
             if (requestCode == 1  && resultCode  == RESULT_OK) {
                 // fetch the message String
-                circle_player = data.getStringExtra("CIRCLE PLAYER");
-                square_player = data.getStringExtra("SQUARE PLAYER");
-                triangle_player = data.getStringExtra("TRIANGLE PLAYER");
-                semicircle_player = data.getStringExtra("SEMICIRCLE PLAYER");
-                heart_player = data.getStringExtra("HEART PLAYER");
+                if(teamSelected.equals(home_id)){
+                    circle_player_home = data.getStringExtra("CIRCLE PLAYER");
+                    square_player_home = data.getStringExtra("SQUARE PLAYER");
+                    triangle_player_home = data.getStringExtra("TRIANGLE PLAYER");
+                    semicircle_player_home = data.getStringExtra("SEMICIRCLE PLAYER");
+                    heart_player_home = data.getStringExtra("HEART PLAYER");
+                }
+                else if(teamSelected.equals(away_id)){
+                    circle_player_away = data.getStringExtra("CIRCLE PLAYER");
+                    square_player_away = data.getStringExtra("SQUARE PLAYER");
+                    triangle_player_away = data.getStringExtra("TRIANGLE PLAYER");
+                    semicircle_player_away = data.getStringExtra("SEMICIRCLE PLAYER");
+                    heart_player_away = data.getStringExtra("HEART PLAYER");
+                }
             }
         } catch (Exception ex) {
         Toast.makeText(StatInput.this, ex.toString(), Toast.LENGTH_SHORT).show();
@@ -189,27 +199,26 @@ public class StatInput extends AppCompatActivity implements GestureOverlayView.O
                 case ("left"):
                     Log.d(TAG, "left");
                     teamSelected = away_id;
-                    Log.d(TAG, "circle_player"+(circle_player));
-                    Log.d(TAG, "square_player"+(square_player));
-                    Log.d(TAG, "triangle_player"+(triangle_player));
-                    Log.d(TAG, "semicircle_player"+(semicircle_player));
-                    Log.d(TAG, "heart_player"+(heart_player));
+                    Log.d(TAG, "circle_player"+(circle_player_away));
+                    Log.d(TAG, "square_player"+(square_player_away));
+                    Log.d(TAG, "triangle_player"+(triangle_player_away));
+                    Log.d(TAG, "semicircle_player"+(semicircle_player_away));
+                    Log.d(TAG, "heart_player"+(heart_player_away));
                     break;
                 case ("right"):
                     Log.d(TAG, "right");
                     teamSelected = home_id;
+                    Log.d(TAG, "circle_player"+(circle_player_home));
+                    Log.d(TAG, "square_player"+(square_player_home));
+                    Log.d(TAG, "triangle_player"+(triangle_player_home));
+                    Log.d(TAG, "semicircle_player"+(semicircle_player_home));
+                    Log.d(TAG, "heart_player"+(heart_player_home));
                     break;
             }
         }
 
         else if(result.equals("circle") || result.equals("square") || result.equals("triangle") || result.equals("semicircle") || result.equals("heart")) {
             switch (result) {
-                case ("left"):
-                    Log.d(TAG, "left");
-                    break;
-                case ("right"):
-                    Log.d(TAG, "right");
-                    break;
                 case ("circle"):
                     Log.d(TAG, "circle");
                     break;
