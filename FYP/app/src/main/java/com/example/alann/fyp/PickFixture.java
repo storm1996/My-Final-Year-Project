@@ -173,7 +173,6 @@ public class PickFixture extends AppCompatActivity {
                                 String id = json_object.getString("team_id");
                                 String type = json_object.getString("team_name");
                                 int j = i;
-
                                 team_length += 1;
                                 //add to the array used for POST
                                 if (j == 0)
@@ -181,10 +180,17 @@ public class PickFixture extends AppCompatActivity {
                                     team_array[j]= id;
                                     team_array[j+=1]= type;
                                 }
-                                if(j != 0)
+                                if(j == 1)
                                 {
                                     team_array[j+=1]= id;
                                     team_array[j+=1]= type;
+                                }
+                                if(j > 1)
+                                {
+                                    int k = (j+j);
+                                    int l = (j+j+1);
+                                    team_array[k]= id;
+                                    team_array[l]= type;
                                 }
 
                             }
