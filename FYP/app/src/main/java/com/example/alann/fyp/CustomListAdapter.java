@@ -21,7 +21,7 @@ public class CustomListAdapter extends ArrayAdapter {
     private final Activity context;
 
     //to store the animal images
-    private final String[] nameArray;
+    private String[] nameArray;
 
     //to store the list of countries
     private final Drawable[] mPlaceAvatars;
@@ -58,4 +58,5 @@ public class CustomListAdapter extends ArrayAdapter {
         return rowView;
 
     };
+
 }

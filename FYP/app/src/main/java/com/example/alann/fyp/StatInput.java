@@ -132,11 +132,11 @@ public class StatInput extends AppCompatActivity implements GestureOverlayView.O
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(StatInput.this, SubstitutionPage.class);
+                Intent intent = new Intent(StatInput.this, DeleteRecords.class);
                 intent.putExtra("FIXTURE_TEAM_ID", fixture_id);
                 intent.putExtra("HOME_TEAM_ID", home_id);
                 intent.putExtra("AWAY_TEAM_ID", away_id);
-                //context.startActivity(intent);
+                StatInput.this.startActivity(intent);
             }
         });
         fixture_id = getIntent().getStringExtra("FIXTURE_TEAM_ID");
