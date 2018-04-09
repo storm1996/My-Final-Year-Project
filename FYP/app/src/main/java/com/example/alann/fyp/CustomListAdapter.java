@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by alann on 31/03/2018.
  */
@@ -21,13 +23,13 @@ public class CustomListAdapter extends ArrayAdapter {
     private final Activity context;
 
     //to store the animal images
-    private String[] nameArray;
+    private ArrayList<String> nameArray;
 
     //to store the list of countries
     private final Drawable[] mPlaceAvatars;
 
 
-    public CustomListAdapter(Activity context, String[] nameArray){
+    public CustomListAdapter(Activity context, ArrayList<String> nameArray){
 
         super(context,R.layout.list_row , nameArray);
         this.context=context;
@@ -52,7 +54,7 @@ public class CustomListAdapter extends ArrayAdapter {
         ImageView imageView = (ImageView) rowView.findViewById(R.id.list_avatar);
 
         //this code sets the values of the objects to values from the arrays
-        gameTextField.setText(nameArray[position % nameArray.length]);
+        gameTextField.setText(nameArray.get(position % nameArray.size()));
         imageView.setImageDrawable(mPlaceAvatars[position % mPlaceAvatars.length]);
 
         return rowView;

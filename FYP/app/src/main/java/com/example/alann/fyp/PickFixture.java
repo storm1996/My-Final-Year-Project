@@ -62,7 +62,8 @@ public class PickFixture extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private static final String TAG = "PickFixture";
     ListView listView;
-    String[] nameArray, name_array_home, name_array_away, team_array, home_array, away_array, date_array, id_array;
+    ArrayList<String> nameArray;
+    String[] nameArraystring, name_array_home, name_array_away, team_array, home_array, away_array, date_array, id_array;
     String selected_home_id, selected_away_id, selected_fixture_id = new String();
     int length, team_length = 0;
 
@@ -105,7 +106,6 @@ public class PickFixture extends AppCompatActivity {
                         return true;
                     }
                 });
-
         getAllTeams();
     }
 
@@ -134,9 +134,11 @@ public class PickFixture extends AppCompatActivity {
         }
         Log.d(TAG, "name_array_home"+Arrays.toString(name_array_away));
 
-        nameArray = new String[length];
+        nameArray= new ArrayList<>();
+        nameArraystring = new String[length];
         for(int i=0;i<length;i++) {
-            nameArray[i] = name_array_home[i]+" vs. "+name_array_away[i]+"\n"+date_array[i];
+            nameArraystring[i] = name_array_home[i]+" vs. "+name_array_away[i]+"\n"+date_array[i];
+            nameArray.add(nameArraystring[i]);
         }
 
         CustomListAdapter listAdapter = new CustomListAdapter(this, nameArray);

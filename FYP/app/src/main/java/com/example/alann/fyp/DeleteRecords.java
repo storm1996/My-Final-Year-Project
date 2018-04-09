@@ -1,5 +1,6 @@
 package com.example.alann.fyp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -8,6 +9,7 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -28,6 +30,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -38,8 +41,9 @@ public class DeleteRecords extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private static final String TAG = "DeleteRecords";
     ListView listView;
-    String[] nameArray, team_array, action_id_array, action_array, home_away_array, player_array, player_array_identifier, home_away_name_array;
-    String[] player_action_array, player_array_no_nulls, action_array_no_nulls, action_id_array_no_nulls;
+    ArrayList<String> nameArray, action_id_arraylist_no_nulls;
+    String[] nameArraystring, team_array, action_id_array, action_array, home_away_array, player_array, player_array_identifier, home_away_name_array;
+    String[] player_action_array, player_array_no_nulls, action_array_no_nulls;
     String home_id, away_id, fixture_id, selected_action_id = new String();
     int  player_array_identifier_length, action_length, team_length, action_length_no_nulls = 0;
 
@@ -268,22 +272,22 @@ public class DeleteRecords extends AppCompatActivity {
         }
         Log.d(TAG, "home_away_name_array"+Arrays.toString(home_away_name_array));
 
+        action_id_arraylist_no_nulls= new ArrayList<>();
+
         player_array_no_nulls = new String[action_length_no_nulls];
         action_array_no_nulls = new String[action_length_no_nulls];
-        action_id_array_no_nulls = new String[action_length_no_nulls];
         int n =0;
         for (int i = 0; i < action_length; i++) {
             if(player_array[i] != null){
                 player_array_no_nulls[n] = player_array[i];
                 action_array_no_nulls[n] = action_array[i];
-                action_id_array_no_nulls[n] = action_id_array[i];
+                action_id_arraylist_no_nulls.add(action_id_array[i]);
                 n += 1;
             }
         }
 
         Log.d(TAG, "player_array_no_nulls"+Arrays.toString(player_array_no_nulls));
         Log.d(TAG, "action_array_no_nulls"+Arrays.toString(action_array_no_nulls));
-        Log.d(TAG, "action_id_array_no_nulls"+Arrays.toString(action_id_array_no_nulls));
         player_action_array = new String[action_length_no_nulls];
         for (int i = 0; i < action_length_no_nulls; i++) {
             for (int j = 0; j < (player_array_identifier_length * 2); j++) {
@@ -296,9 +300,11 @@ public class DeleteRecords extends AppCompatActivity {
         }
         Log.d(TAG, "player_action_array"+Arrays.toString(player_action_array));
 
-        nameArray = new String[action_length_no_nulls];
+        nameArray= new ArrayList<>();
+        nameArraystring = new String[action_length_no_nulls];
         for(int i=0;i<action_length_no_nulls;i++) {
-            nameArray[i] = player_action_array[i]+"\n"+action_array_no_nulls[i];
+            nameArraystring[i] = player_action_array[i]+"\n"+action_array_no_nulls[i];
+            nameArray.add(nameArraystring[i]);
         }
 
         CustomListAdapter listAdapter = new CustomListAdapter(this, nameArray);
@@ -308,23 +314,42 @@ public class DeleteRecords extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selected_action_id = action_id_array_no_nulls[position];
-                Log.d(TAG, "selected_action_id"+ selected_action_id);
-                String url = "http://178.62.2.33:8000/api/action/"+selected_action_id+"/?format=json";
-                StringRequest jsonArrayRequest = new StringRequest(Request.Method.DELETE, url, // PARSING THE JSON VALUES
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                    Log.d(TAG, "DONE");
-                            }
-                        }, new Response.ErrorListener() {
+                AlertDialog.Builder alert = new AlertDialog.Builder(DeleteRecords.this);
+                alert.setTitle("Delete entry");
+                alert.setMessage("Are you sure you want to delete?");
+                alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                        selected_action_id = action_id_arraylist_no_nulls.get(position);
+
+                        Log.d(TAG, "selected_action_id"+ selected_action_id);
+                        String url = "http://178.62.2.33:8000/api/action/"+selected_action_id+"/?format=json";
+                        StringRequest jsonArrayRequest = new StringRequest(Request.Method.DELETE, url, // PARSING THE JSON VALUES
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        nameArray.remove(position);
+                                        action_id_arraylist_no_nulls.remove(position);
+                                        listAdapter.notifyDataSetChanged();
+                                        Log.d(TAG, "DONE");
+                                    }
+                                }, new Response.ErrorListener() {
 
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 // TODO Auto-generated method stub
                             }
                         });
-                MySingleton.getInstance(DeleteRecords.this).addToRequestQueue(jsonArrayRequest);
+                        MySingleton.getInstance(DeleteRecords.this).addToRequestQueue(jsonArrayRequest);;
+                    }
+                });
+                alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // close dialog
+                        dialog.cancel();
+                    }
+                });
+                alert.show();
             }
         });
     }
