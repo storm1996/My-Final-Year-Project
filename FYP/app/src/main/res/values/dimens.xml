@@ -4,7 +4,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab">10dp</dimen>
-    <dimen name="card_height">154dp</dimen>
+    <dimen name="card_height">104dp</dimen>
     <dimen name="md_keylines">16dp</dimen>
     <dimen name="md_imagelines">40dp</dimen>
     <dimen name="tile_padding">16dp</dimen>
@@ -21,7 +21,7 @@
     <dimen name="cards_button_width">48dp</dimen>
     <dimen name="cards_button_height">48dp</dimen>
     <dimen name="article_subheading">16sp</dimen>
-    <dimen name="card_image_height">110dp</dimen>
+    <dimen name="card_image_height">60dp</dimen>
     <dimen name="card_image_width">200dp</dimen>
     <dimen name="card_image_margin">65dp</dimen>
     <dimen name="list_toolbar">55dp</dimen>
