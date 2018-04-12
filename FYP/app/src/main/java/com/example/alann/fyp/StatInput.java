@@ -26,6 +26,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +51,7 @@ public class StatInput extends AppCompatActivity implements GestureOverlayView.O
 
     private static final String TAG = "StatInput";
     private DrawerLayout mDrawerLayout;
+    ImageView actions;
     TextView teamSelectedView, playerSelectedView, actionSelectedView;
     TextView circlePlayerView, squarePlayerView, trianglePlayerView, semicirclePlayerView, heartPlayerView;
     String fixture_id, home_id, away_id, selectedPlayer, result, teamSelected, selectedType = new String();
@@ -158,6 +160,8 @@ public class StatInput extends AppCompatActivity implements GestureOverlayView.O
 
         playerSelectedView = (TextView) findViewById(R.id.playerSelectedView);
         actionSelectedView = (TextView) findViewById(R.id.actionSelectedView);
+
+        actions = (ImageView) findViewById(R.id.actions);
     }
 
     @Override

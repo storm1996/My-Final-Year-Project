@@ -4,9 +4,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_bball"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_bball"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -25,6 +25,7 @@
         <activity android:name=".StatInput" />
         <activity android:name=".SubstitutionPage" />
         <activity android:name=".DeleteRecords" />
+        <activity android:name=".IndividualResult" />
     </application>
 
 </manifest>

@@ -124,23 +124,25 @@ public class ResultsContentFragment extends Fragment {
         public ImageView resultpic;
         public TextView fixture;
         public TextView result;
+        public String position;
 
         public ViewHolder(View itemView) {
             super(itemView);
             resultpic = itemView.findViewById(R.id.card_resultpic);
-            resultpic.setBackgroundColor(Color.rgb(255, 229, 204));
+            resultpic.setBackgroundColor(Color.rgb(255, 184, 102));
             fixture = itemView.findViewById(R.id.card_fixture);
             result = itemView.findViewById(R.id.card_result);
 
-            //itemView.setOnClickListener(new View.OnClickListener() {
-                //@Override
-                //public void onClick(View v) {
-                    //Context context = v.getContext();
-                    //Intent intent = new Intent(context, DetailActivity.class);
-                    //intent.putExtra(DetailActivity.EXTRA_POSITION, getAdapterPosition());
-                    //context.startActivity(intent);
-                //}
-            //});
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, IndividualResult.class);
+                    position = String.valueOf(getAdapterPosition());
+                    intent.putExtra("POSITION", position);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
     private void changeUrlsToNames() {
