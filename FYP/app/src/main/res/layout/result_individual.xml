@@ -40,6 +40,7 @@
                 android:paddingTop="@dimen/image_tile_height"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:backgroundTint="@color/colorPrimary"
                 android:orientation="vertical" >
 
                 <TextView
@@ -58,6 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/md_keylines"
+                    android:maxLength="15"
                     android:textSize="@dimen/article_titles" />
 
                 <TextView
@@ -91,6 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/selectedHome"
+                    android:maxLength="15"
                     android:layout_alignBottom="@+id/selectedHome"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="@dimen/md_keylines"

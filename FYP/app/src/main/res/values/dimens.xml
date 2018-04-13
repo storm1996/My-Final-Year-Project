@@ -18,6 +18,7 @@
     <dimen name="avator_size">40dp</dimen>
     <dimen name="card_title_height">30dp</dimen>
     <dimen name="article_titles">20sp</dimen>
+    <dimen name="article_titles1">10dp</dimen>
     <dimen name="cards_button_width">48dp</dimen>
     <dimen name="cards_button_height">48dp</dimen>
     <dimen name="article_subheading">16sp</dimen>

@@ -52,7 +52,7 @@ public class StatInput extends AppCompatActivity implements GestureOverlayView.O
     private static final String TAG = "StatInput";
     private DrawerLayout mDrawerLayout;
     ImageView actions;
-    TextView teamSelectedView, playerSelectedView, actionSelectedView;
+    TextView teamSelectedView, playerSelectedView, actionSelectedView, HomeScore, AwayScore;
     TextView circlePlayerView, squarePlayerView, trianglePlayerView, semicirclePlayerView, heartPlayerView;
     String fixture_id, home_id, away_id, selectedPlayer, result, teamSelected, selectedType = new String();
     String circle_player_home, square_player_home, triangle_player_home, semicircle_player_home, heart_player_home = new String();
@@ -161,7 +161,21 @@ public class StatInput extends AppCompatActivity implements GestureOverlayView.O
         playerSelectedView = (TextView) findViewById(R.id.playerSelectedView);
         actionSelectedView = (TextView) findViewById(R.id.actionSelectedView);
 
+        HomeScore = (TextView) findViewById(R.id.HomeScore);
+        AwayScore = (TextView) findViewById(R.id.AwayScore);
+
         actions = (ImageView) findViewById(R.id.actions);
+
+        teamSelected = away_id;
+        teamSelectedView.setText("Away");
+        circlePlayerView.setText("Circle: "+circle_player_away_name);
+        squarePlayerView.setText("Square: "+square_player_away_name);
+        trianglePlayerView.setText("Triangle: "+triangle_player_away_name);
+        semicirclePlayerView.setText("Semi-Circle: "+semicircle_player_away_name);
+        heartPlayerView.setText("Heart: "+heart_player_away_name);
+
+        HomeScore.setText("0");
+        AwayScore.setText("0");
     }
 
     @Override
